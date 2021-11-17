@@ -97,3 +97,9 @@ img  {
     position: relative;
     z-index: 999;
 }
+.header {
+    background-size: cover;
+    padding: 0 90px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}

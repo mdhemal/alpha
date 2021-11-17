@@ -14,6 +14,7 @@ function alpha_theme_setup() {
 	load_theme_textdomain('alpha');
 	add_theme_support('post-thumbnails');
 	add_theme_support('title-tag');
+	add_theme_support('custom-header');
 	register_nav_menu( 'topmennu', __("Header Menu") );
 	register_nav_menu( 'footer-menu', __("Footer Menu") );
 }
@@ -94,5 +95,14 @@ function alpha_page_inline_style() {
 		}
 	</style>
 	<?php }
+	if(is_front_page()) {
+		if(current_theme_supports('custom-header')) {?>
+			<style>
+				.header {
+					background-image: url(<?php header_image(); ?>);
+				}
+			</style>
+		<?php }
+	}
 }
 add_action('wp_head', 'alpha_page_inline_style', 11);
