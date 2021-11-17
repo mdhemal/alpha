@@ -14,7 +14,11 @@ function alpha_theme_setup() {
 	load_theme_textdomain('alpha');
 	add_theme_support('post-thumbnails');
 	add_theme_support('title-tag');
-	add_theme_support('custom-header');
+	$header_text_style = array(
+		'header-text' => true,
+		'default-text-color' => '#222'
+	);
+	add_theme_support('custom-header', $header_text_style);
 	register_nav_menu( 'topmennu', __("Header Menu") );
 	register_nav_menu( 'footer-menu', __("Footer Menu") );
 }
@@ -101,7 +105,19 @@ function alpha_page_inline_style() {
 				.header {
 					background-image: url(<?php header_image(); ?>);
 				}
+				.header .heading, .tagline {
+					color: #<?php echo get_header_textcolor(); ?>
+				}
 			</style>
+			<?php
+				if(!display_header_text()) {?>
+					<style>
+						.heading {
+							display: none;
+						}
+					</style>
+				<?php }
+			?>
 		<?php }
 	}
 }
