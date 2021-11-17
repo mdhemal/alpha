@@ -14,6 +14,13 @@ function alpha_theme_setup() {
 	load_theme_textdomain('alpha');
 	add_theme_support('post-thumbnails');
 	add_theme_support('title-tag');
+	$custom_logo_args = array(
+		'height' => '100',
+		'width' => '100',
+		'flex-height' => true,
+		'flex-width' => true
+	);
+	add_theme_support('custom-logo', $custom_logo_args);
 	$header_text_style = array(
 		'header-text' => true,
 		'default-text-color' => '#222'
