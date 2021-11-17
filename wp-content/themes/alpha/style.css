@@ -1,0 +1,99 @@
+/*!
+Theme Name: alpha
+Theme URI: https://www.devsnews.com/wp/alpha
+Author: HR
+Author URI: https://themeforest.net/user/hr/portfolio
+Description: alpha - Printing Services Company WordPress Theme
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: alpha
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+
+alpha is based on Underscores https://underscores.me/, (C) 2012-2017 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+
+Normalizing styles have been helped along thanks to the fine work of
+Nicolas Gallagher and Jonathaalpha-page-contentn Neal https://necolas.github.io/normalize.css/
+*/
+
+/* Here Custom CSS. */
+
+
+h1.heading {
+            font-family: "Arial Black";
+            width: 700px;
+            margin: auto;
+            margin-bottom: 70px;
+            padding-bottom: 50px;
+        }
+
+        h3.tagline{
+            font-family: Arial;
+            margin:auto;
+            font-size: 18px;
+            margin-top: 50px;
+            margin-bottom: 15px;
+            width: 700px;
+            text-align: center;
+        }
+
+        h2.post-title {
+            margin-bottom: 30px;
+        }
+
+        .post {
+            margin-bottom: 50px;
+        }
+
+        .post p{
+            font-family: "Helvetica Neue";
+            line-height: 1.7em;
+            font-size: 18px;
+        }
+
+        .post .row:nth-child(2) {
+            padding-bottom: 50px;
+            border-bottom: 1px solid #ccc;
+
+        }
+
+        .post:last-child .row:nth-child(2){
+            border-bottom:none;
+        }
+
+        .footer{
+            padding-bottom: 10px;
+            padding-top: 10px;
+            background-color: #222;
+            color:#ccc;
+        }
+
+        .tags li{
+            color: #3D9970;
+        }
+.inline li {
+    display: inline-block;
+    margin: 0 3px;
+}
+img  {
+    max-width: 100%;
+    height: auto;
+}
+.page-header {
+    height: 450px;
+    background-size: cover;
+    padding: 0 90px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.mb-100 {
+    margin-bottom: 100px;
+}
+.menu-\{menu-slug\}-container {
+    position: relative;
+    z-index: 999;
+}
