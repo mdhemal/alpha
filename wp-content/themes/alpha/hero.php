@@ -5,7 +5,7 @@
             	<?php 
             		if(current_theme_supports('custom-logo')) {?>
             			<div class="text-center">
-            				<img src="<?php the_custom_logo(); ?>" alt="">
+            				<img src="<?php echo the_custom_logo(); ?>" alt="">
 		            	</div>
             		<?php }
             	?>

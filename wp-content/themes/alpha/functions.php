@@ -13,6 +13,7 @@ add_filter("use_block_editor_for_post_type", "alpha_disable_gutenberg_editor");
 function alpha_theme_setup() {
 	load_theme_textdomain('alpha');
 	add_theme_support('post-thumbnails');
+	add_theme_support('custom-background');
 	add_theme_support('title-tag');
 	$custom_logo_args = array(
 		'height' => '100',
