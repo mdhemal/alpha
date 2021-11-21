@@ -20,6 +20,7 @@ function alpha_theme_setup() {
 	load_theme_textdomain('alpha');
 	add_theme_support('post-thumbnails');
 	add_theme_support('custom-background');
+	add_theme_support( 'html5', array( 'search-form' ) );
 	add_theme_support('title-tag');
 	add_theme_support('dashicons');
 	add_theme_support('post-formats', array(
@@ -147,6 +148,7 @@ function alpha_page_inline_style() {
 	}
 }
 add_action('wp_head', 'alpha_page_inline_style', 11);
+// add or remove class in body_class
 function alpha_body_class($classes) {
 	unset($classes[array_search("first-class", $classes)]);
     unset($classes[array_search("second-class", $classes)]);
@@ -154,6 +156,7 @@ function alpha_body_class($classes) {
     return $classes;
 }
 add_filter('body_class', 'alpha_body_class');
+// add or remove class in post_class
 function alpha_post_class($classes){
     unset($classes[array_search("format-audio", $classes)]);
     return $classes;
@@ -170,3 +173,14 @@ function alpha_tag_style() {?>
 <?php }
 add_filter('wp_head', 'alpha_tag_style');
 
+// search result text highlight
+function alpha_highlight_search_results($text){
+    if(is_search()){
+        $pattern = '/('. join('|', explode(' ', get_search_query())).')/i';
+        $text = preg_replace($pattern, '<span class="search-highlight">\0</span>', $text);
+    }
+    return $text;
+}
+add_filter('the_content', 'alpha_highlight_search_results');
+add_filter('the_excerpt', 'alpha_highlight_search_results');
+add_filter('the_title', 'alpha_highlight_search_results');

@@ -148,3 +148,10 @@ img  {
 .mb-50 {
     margin-bottom: 50px;
 }
+.pt-90 {
+    padding-top: 90px;
+}
+.search-highlight {
+    background-color: orange;
+    color: #fff;
+}
