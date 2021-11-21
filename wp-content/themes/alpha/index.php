@@ -5,41 +5,7 @@
     <?php
     while(have_posts()) {
         the_post();?>
-         <div class="post"<?php echo post_class(); ?>>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="post-title"><a href="<?php the_permalink(); ?>"><?php echo get_the_title(); ?></a></h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <p>
-                        <strong><?php echo get_the_author(); ?></strong><br/>
-                        <?php echo get_the_date(); ?>
-                    </p>
-                    <?php echo get_the_tag_list('<ul class="list-unstyled"><li>', '</li><li>','</li></ul>'); ?>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                        <?php
-                        if(has_post_thumbnail()) {
-                            the_post_thumbnail('large', "class='img-fluid'");
-                        }
-                        ?>
-                    </p>
-                    <?php
-                        if(is_single()) {
-                            the_content();
-                        } else {
-                         the_excerpt();
-                        }
-                    ?>
-                </div>
-            </div>
-
-        </div>
-    </div>
+         <?php get_template_part('post-formats/content', get_post_format()) ?>
     <?php }
     ?>
 </div>
@@ -55,4 +21,40 @@
         </div>
     </div>
 </div>
+
+<!-- testimonial from testimonial page -->
+<?php if(is_front_page()) : ?>
+<div class="container">
+    <div class="row">
+        <div class="col-xxl-10 offset-xxl-1 mb-50">
+            <div class="col-xxl-12">
+                <?php
+                          // retrieve all Attachments for the 'attachments' instance of post 123
+                        $attachments = new Attachments( 'testimonial_slide', 143);
+                ?>
+                <?php if( $attachments->exist() ) : ?>
+                <?php if (class_exists( 'Attachments' ) ) : ?>
+                <h2 class="text-center">Testimonial</h2>
+                <div class="testimonial-wrapper" id="gallery-images">
+                    <?php while( $attachments->get() ) : ?>
+                        <div class="single-attachments">
+                            <div class="user-thumb">
+                                <?php echo $attachments->image( 'thumbnail-large' ); ?>
+                            </div>
+                            <div class="user-content">
+                                <h4 class="test-title"><?php echo esc_html($attachments->field( 'slide_testimonial_name' )); ?></h4>
+                                <p class="test-email"><?php echo esc_html($attachments->field( 'slide_testimonial_email' )); ?></p>
+                                <p class="test-pos"><?php echo esc_html($attachments->field( 'slide_testimonial_position' )); ?></p>
+                                <p class="test-content"><?php echo esc_html($attachments->field( 'slide_testimonial_content' )); ?></p>
+                            </div>
+                        </div>
+                     <?php endwhile; ?>
+                </div>
+                <?php endif; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 <?php get_footer(); ?>

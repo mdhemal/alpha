@@ -107,3 +107,44 @@ img  {
     padding-top: 150px;
     padding-bottom: 150px;
 }
+.author-box {
+    border: 1px solid #ddd;
+    padding: 30px;
+    margin-top: 50px;
+    margin-bottom: 90px;
+}
+.single-author-link {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.user-thumb {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.user-thumb img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.single-attachments {
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+    padding: 30px;
+    text-align: center;
+}
+.single-team {
+    border: 2px solid #ddd;
+    padding: 30px;
+    text-align: center;
+}
+.mb-50 {
+    margin-bottom: 50px;
+}

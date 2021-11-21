@@ -1,54 +1,42 @@
 <?php get_header(); ?>
-<body <?php body_class(); ?>>
+<?php
+$sidebar_class = "col-xl-8";
+    $text_class = "text-left";
+if(!is_active_sidebar('blog-sidebar')) {
+    $sidebar_class = "col-xl-12";
+    $text_class = "text-center";
+}
+$attachments = new Attachments( 'attachments' );
+?>
+<body <?php body_class(array("first-class", "second-class", "third-class")); ?>>
 <?php get_template_part('template-parts/common/hero'); ?>
 <div class="post-wrap">
     <div class="container">
         <div class="row">
-            <div class="col-xl-8">
+            <div class="<?php echo esc_attr($sidebar_class); ?>">
                 <div class="posts">
                     <?php
                     while(have_posts()) {
                         the_post();?>
-                         <div class="post"<?php echo post_class(); ?>>
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-md-10  text-center">
-                                    <h2 class="post-title"><?php echo get_the_title(); ?></h2>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center  text-center">
-                                <div class="col-md-10">
-                                    <p>
-                                        <strong><?php echo get_the_author(); ?></strong><br/>
-                                        <?php echo get_the_date(); ?>
-                                    </p>
-                                    <?php echo get_the_tag_list('<ul class="list-unstyled inline"><li>', '</li><li>','</li></ul>'); ?>
-                                </div>
-                                <div class="col-md-10">
-                                    <p>
-                                        <?php
-                                        if(has_post_thumbnail()) {
-                                            $thumbnail_url = get_the_post_thumbnail_url(null, 'large');
-                                            printf('<a href=#" class="popup" data-featherlight="%s">', $thumbnail_url);
-                                            the_post_thumbnail('large', "class='img-fluid'");
-                                            echo "</a>";
-                                        }
-                                        ?>
-                                    </p>
-                                    <?php
-                                        if(is_single()) {
-                                            the_content();
-                                        } else {
-                                         the_excerpt();
-                                        }
-                                    ?>
-                                </div>
-                            </div>
-
+                        <div class="single-author-link">
+                            <?php the_author_posts_link(); ?>
                         </div>
-                    </div>
+                        <!-- gallery images -->
+                        <?php if( $attachments->exist() ) : ?>
+                            <div id="gallery-images">
+                                <?php while( $attachment = $attachments->get() ) : ?>
+                                   <div class="single-image">
+                                       <?php echo $attachments->image( 'large' ); ?>
+                                   </div>
+                                <?php endwhile; ?>
+                            </div>
+                        <?php endif; ?>
+                         <?php get_template_part('post-formats/content', get_post_format()); ?>
                     <?php }
                     ?>
+                    <div class="pages-link">
+                        <?php echo wp_link_pages(); ?>
+                    </div>
                     <div class="post-links">
                         <div class="container">
                             <?php previous_post_link(); ?>
@@ -57,6 +45,7 @@
                     </div>
                 </div>
             </div>
+            <?php if(is_active_sidebar('blog-sidebar')) : ?>
             <div class="col-xl-4">
                 <?php
                 if(is_active_sidebar('blog-sidebar')) {
@@ -64,6 +53,7 @@
                 }
                 ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

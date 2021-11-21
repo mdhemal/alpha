@@ -4,17 +4,32 @@ if('http://localhost/wp/alpha' == site_url()) {
 } else {
 	define('VERSION', wp_get_theme()->get('Version'));
 }
+// require once files
+if (class_exists( 'Attachments' ) ) {
+	require_once('lib/attachments.php');
+}
+
+
+
 function alpha_disable_gutenberg_editor()
 {
 	return false;
 }
 add_filter("use_block_editor_for_post_type", "alpha_disable_gutenberg_editor");
-
 function alpha_theme_setup() {
 	load_theme_textdomain('alpha');
 	add_theme_support('post-thumbnails');
 	add_theme_support('custom-background');
 	add_theme_support('title-tag');
+	add_theme_support('dashicons');
+	add_theme_support('post-formats', array(
+		'image',
+		'quote',
+		'video',
+		'audio',
+		'gallery',
+		'link',
+	));
 	$custom_logo_args = array(
 		'height' => '100',
 		'width' => '100',
@@ -34,7 +49,9 @@ add_action('after_setup_theme', 'alpha_theme_setup');
 function alpha_theme_scripts() {
 	wp_enqueue_style('alpha_style', get_stylesheet_uri(), null, VERSION);
 	wp_enqueue_style('bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+	wp_enqueue_style( 'tiny-slider', get_theme_file_uri('assets/css/tiny-slider.css'), 'null' , time(), false );
 	wp_enqueue_style('featherlight', '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css');
+	wp_enqueue_script('tiny-slider',  get_theme_file_uri('assets/js/tiny-slider.js'), array('jquery'), time(), true);
 	wp_enqueue_script('featherlight-js', '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js', array('jquery'), '1.0.0', false);
 	wp_enqueue_script('alpha-js', get_theme_file_uri("assets/js/main.js"), array('jquery', 'featherlight-js'), VERSION , false);
 }
@@ -130,3 +147,26 @@ function alpha_page_inline_style() {
 	}
 }
 add_action('wp_head', 'alpha_page_inline_style', 11);
+function alpha_body_class($classes) {
+	unset($classes[array_search("first-class", $classes)]);
+    unset($classes[array_search("second-class", $classes)]);
+    $classes[] = "newclass";
+    return $classes;
+}
+add_filter('body_class', 'alpha_body_class');
+function alpha_post_class($classes){
+    unset($classes[array_search("format-audio", $classes)]);
+    return $classes;
+}
+add_filter("post_class","alpha_post_class");
+
+function alpha_tag_style() {?>
+	<style>
+		.tag-space {
+			padding-top: 100px;
+			padding-bottom: 100px;
+		}
+	</style>
+<?php }
+add_filter('wp_head', 'alpha_tag_style');
+
