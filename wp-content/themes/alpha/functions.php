@@ -45,6 +45,9 @@ function alpha_theme_setup() {
 	add_theme_support('custom-header', $header_text_style);
 	register_nav_menu( 'topmennu', __("Header Menu") );
 	register_nav_menu( 'footer-menu', __("Footer Menu") );
+
+	// custom image size
+	add_image_size( 'alpha-square', 400, 400, true);
 }
 add_action('after_setup_theme', 'alpha_theme_setup');
 function alpha_theme_scripts() {

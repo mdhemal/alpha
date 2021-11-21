@@ -17,7 +17,7 @@
                     <p>
                         <?php
                         if(has_post_thumbnail()) {
-                            the_post_thumbnail('alpha-square', "class='img-fluid'");
+                            the_post_thumbnail('large', "class='img-fluid'");
                         }
                         ?>
                     </p>
