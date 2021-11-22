@@ -196,3 +196,12 @@ function alpha_wp_calculate_image_srcset() {
 }
 add_filter('wp_calculate_image_srcset', 'alpha_wp_calculate_image_srcset');
 // add_filter('wp_calculate_image_srcset', '__return_null');
+
+// modify main wordpress query
+function alpha_modify_main_query($wpq) {
+	if(is_home() && $wpq->is_main_query()) {
+		// $wpq->set("post__not_in", array(140));
+		$wpq->set("tag__not_in", array(15));
+	}
+}
+add_action('pre_get_posts', 'alpha_modify_main_query');

@@ -6,3 +6,4 @@ function after_setup_theme(){
     wp_enqueue_style( 'alpha-style', get_theme_file_uri("/style.css"), array(), time(), false );
 }
 add_action("wp_enqueue_scripts","after_setup_theme", 11);
+
