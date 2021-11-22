@@ -58,7 +58,7 @@ $attachments = new Attachments( 'attachments' );
     </div>
 </div>
 	<div class="container">
-		<?php if(comments_open()) : ?>
+		<?php if(!post_password_required()) : ?>
 			<div class="comments-template">
 				<?php comments_template(); ?>
 			</div>

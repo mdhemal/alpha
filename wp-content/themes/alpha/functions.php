@@ -50,16 +50,19 @@ function alpha_theme_setup() {
 	add_image_size( 'alpha-square', 400, 400, true);
 }
 add_action('after_setup_theme', 'alpha_theme_setup');
-function alpha_theme_scripts() {
-	wp_enqueue_style('alpha_style', get_stylesheet_uri(), null, VERSION);
-	wp_enqueue_style('bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
-	wp_enqueue_style( 'tiny-slider', get_theme_file_uri('assets/css/tiny-slider.css'), 'null' , time(), false );
-	wp_enqueue_style('featherlight', '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css');
-	wp_enqueue_script('tiny-slider',  get_theme_file_uri('assets/js/tiny-slider.js'), array('jquery'), time(), true);
-	wp_enqueue_script('featherlight-js', '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js', array('jquery'), '1.0.0', false);
-	wp_enqueue_script('alpha-js', get_theme_file_uri("assets/js/main.js"), array('jquery', 'featherlight-js'), VERSION , false);
+if(!function_exists("alpha_theme_scripts")) {
+	function alpha_theme_scripts() {
+		wp_enqueue_style('alpha-style', get_stylesheet_uri(), null, VERSION);
+		wp_enqueue_style('bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+		wp_enqueue_style( 'tiny-slider', get_theme_file_uri('assets/css/tiny-slider.css'), 'null' , time(), false );
+		wp_enqueue_style('featherlight', '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css');
+		wp_enqueue_script('tiny-slider',  get_theme_file_uri('assets/js/tiny-slider.js'), array('jquery'), time(), true);
+		wp_enqueue_script('featherlight-js', '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js', array('jquery'), '1.0.0', false);
+		wp_enqueue_script('alpha-js', get_theme_file_uri("assets/js/main.js"), array('jquery', 'featherlight-js'), VERSION , false);
+	}
+	add_action('wp_enqueue_scripts', 'alpha_theme_scripts');
 }
-add_action('wp_enqueue_scripts', 'alpha_theme_scripts');
+
 
 function alpha_register_sidebar() {
 	/**
@@ -187,3 +190,9 @@ function alpha_highlight_search_results($text){
 add_filter('the_content', 'alpha_highlight_search_results');
 add_filter('the_excerpt', 'alpha_highlight_search_results');
 add_filter('the_title', 'alpha_highlight_search_results');
+// remove default image srcset
+function alpha_wp_calculate_image_srcset() {
+	return null;
+}
+add_filter('wp_calculate_image_srcset', 'alpha_wp_calculate_image_srcset');
+// add_filter('wp_calculate_image_srcset', '__return_null');
