@@ -12,10 +12,18 @@ get_header(); ?>
             <div class="col-12 text-center tag-space">
                 <div class="posts">
                     <?php
+                    $paged = get_query_var("paged") ? get_query_var("paged") : 1;
+                    $posts_per_page = 2;
+                    $total_posts = 4;
+                    // $post_ids = array(11, 12, 15, 140, 16);
                     $query = get_posts( array(
-                        'post__in' => array(11, 12, 15),
+                        // 'post__in' => $post_ids,
+                        'author_in' => 1,
                         'orderby' => 'post__in',
-                        'posts_per_page' => 1,
+                        'numberposts' => $total_posts,
+                        'posts_per_page' => $posts_per_page,
+                        'paged' => $paged // for pagination
+
                     ) );
                     foreach( $query as $post ) {
                         setup_postdata( $query );
@@ -25,11 +33,10 @@ get_header(); ?>
                     ?>
                     <div class="pagination">
                         <?php
-                        the_posts_pagination(
+                        echo paginate_links(
                             array(
-                                'screen_reader_text' => '',
-                                'prev_text' => 'New Posts',
-                                'next_text' => 'Old Posts'
+                                // 'total' => ceil(count($post_ids) / $posts_per_page)
+                                'total' => ceil($total_posts / $posts_per_page)
                             )
                         );
                         ?>
