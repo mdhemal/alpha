@@ -1,6 +1,6 @@
 <?php 
 /**
- * Template Name: Custom Query Wp Query
+ * Template Name: Custom Query Category Posts
  */
 get_header(); ?>
 
@@ -13,18 +13,14 @@ get_header(); ?>
                 <div class="posts">
                     <?php
                     $paged = get_query_var("paged") ? get_query_var("paged") : 1;
-                    $posts_per_page = 2;
+                    $posts_per_page = 1;
                     $total_posts = 5;
                     // $post_ids = array(11, 12, 15, 140, 16);
                     $query = new Wp_Query( array(
-                        // 'post__in' => $post_ids,
-                        'author_in' => 1,
-                        'orderby' => 'post__in',
-                        'numberposts' => $total_posts,
+                        'category_name' => 'new',
                         'posts_per_page' => $posts_per_page,
-                        'paged' => $paged // for pagination
-
-                    ) );
+                        'paged' => $paged
+                    ));
                     while($query->have_posts()) {
                         $query->the_post();
                         ?>

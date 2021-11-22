@@ -1,6 +1,6 @@
 <?php 
 /**
- * Template Name: Custom Query Wp Query
+ * Template Name: Custom Query Or Relation
  */
 get_header(); ?>
 
@@ -17,14 +17,22 @@ get_header(); ?>
                     $total_posts = 5;
                     // $post_ids = array(11, 12, 15, 140, 16);
                     $query = new Wp_Query( array(
-                        // 'post__in' => $post_ids,
-                        'author_in' => 1,
-                        'orderby' => 'post__in',
-                        'numberposts' => $total_posts,
                         'posts_per_page' => $posts_per_page,
-                        'paged' => $paged // for pagination
-
-                    ) );
+                        'paged' => $paged,
+                        'tax_query' => array(
+                            'relation' => 'OR',
+                            array(
+                                'taxonomy' => 'category',
+                                'field'    => 'slug',
+                                'terms'    => array( 'new' ),
+                            ),
+                            array(
+                                'taxonomy' => 'post_tag',
+                                'field'    => 'slug',
+                                'terms'    => array( 'learn' ),
+                            ),
+                        )
+                    ));
                     while($query->have_posts()) {
                         $query->the_post();
                         ?>
