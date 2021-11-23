@@ -155,3 +155,9 @@ img  {
     background-color: orange;
     color: #fff;
 }
+.mt-50 {margin-top: 50px;}
+.thumb-sq img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+}

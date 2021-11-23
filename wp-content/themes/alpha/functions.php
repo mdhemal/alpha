@@ -9,6 +9,7 @@ if (class_exists( 'Attachments' ) ) {
 	require_once('lib/attachments.php');
 }
 
+require_once get_theme_file_path('inc/tgm.php');
 
 
 function alpha_disable_gutenberg_editor()

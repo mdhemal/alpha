@@ -57,6 +57,39 @@ $attachments = new Attachments( 'attachments' );
         </div>
     </div>
 </div>
+<!-- fetch data from ACF ( Advanced Custom Fields ) -->
+<?php if(get_post_format() == "image" && function_exists("the_field")) : ?>
+<div class="licence-information mt-50">
+    <div class="container">
+        <p><strong>Camera Model : </strong><?php echo get_field("camera_model"); ?></p>
+        <p><strong>Information : </strong><?php echo get_field("information"); ?></p>
+        <p><strong>Date : </strong><?php echo get_field("date"); ?></p>
+        <?php if(get_field("licenced")) : ?>
+            <p><strong>LIicence : </strong><?php echo apply_filters('the_content', get_field('licenced_information') ); ?></p>
+        <?php endif; ?>
+        <p>
+            <?php $img = get_field("product_image"); 
+            $featured_img = wp_get_attachment_image_src($img, 'alpha-square');
+            ?>
+            <img src="<?php echo esc_url($featured_img[0]); ?>" alt="">
+        </p>
+
+        <p>
+            <?php
+            $file = get_field('file');
+            if($file) {
+            $file_thumb = get_field('preview_thumbnail', $file['ID']);
+            if($file_thumb) {?>
+                <a target="_blank" href="<?php echo esc_url($file['url']); ?>"><img src="<?php echo esc_url($file_thumb['url']) ?>" alt=""></a>
+            <?php } else {?>
+                <a  target="_blank" href="<?php echo esc_url($file['url']); ?>"><?php echo esc_html($file['filename']) ?></a>
+            <?php }
+            ?>
+        <?php }?>
+        </p>
+    </div>
+</div>
+<?php endif; ?>
 	<div class="container">
 		<?php if(!post_password_required()) : ?>
 			<div class="comments-template">
