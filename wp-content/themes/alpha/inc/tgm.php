@@ -63,6 +63,17 @@ function alpha_register_required_plugins() {
 			'slug'      => 'advanced-custom-fields',
 			'required'  => true,
 		),
+		array(
+			'name'      => 'CMB2',
+			'slug'      => 'cmb2',
+			'required'  => true,
+		),
+		array(
+			'name'      => 'CMB2 Conditionals',
+			'slug'      => 'cmb2-conditionals',
+			'required'  => true,
+			'source' => 'https://github.com/jcchavezs/cmb2-conditionals/archive/refs/heads/master.zip'
+		),
 
 	);
 

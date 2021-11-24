@@ -90,6 +90,29 @@ $attachments = new Attachments( 'attachments' );
     </div>
 </div>
 <?php endif; ?>
+
+<!-- fetch data from CMB2 & CMB2 Conditionals -->
+<?php if(get_post_format() == "image" && class_exists('CMB2')) : 
+    $image_information = get_post_meta(get_the_ID(), '_alpha_image_information', true);
+    $camera_model = get_post_meta(get_the_ID(), '_alpha_camera_model', true);
+    $information = get_post_meta(get_the_ID(), '_alpha_information', true);
+    $text_date_timestamp = get_post_meta(get_the_ID(), '_alpha_text_date_timestamp', true);
+    $licenced = get_post_meta(get_the_ID(), '_alpha_licenced', true);
+    $licence_information = get_post_meta(get_the_ID(), '_alpha_licence_information', true);
+?>
+
+<div class="licence-information mt-50">
+    <div class="container">
+        <h2 class="text-center mb-5"><strong>Image Information </strong><?php echo esc_html($image_information); ?></h2>
+        <p><strong>Information : </strong><?php echo esc_html($camera_model); ?></p>
+        <p><strong>Date : </strong><?php echo esc_html($information); ?></p>
+        <?php if($licenced) : ?>
+            <p><strong>LIicence : </strong><?php echo esc_html($licence_information); ?></p>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+
 	<div class="container">
 		<?php if(!post_password_required()) : ?>
 			<div class="comments-template">
@@ -97,6 +120,48 @@ $attachments = new Attachments( 'attachments' );
 			</div>
 		<?php endif; ?>
 	</div>
+    <?php if(function_exists('get_field')) : ?>
+    <div class="related-posts">
+        <div class="container">
+            <h2><?php _e('Related Posts'); ?></h2>
+            <?php
+            $related_posts = get_field('related_posts');
+            $query = new WP_Query(
+                array(
+                    'post__in' => $related_posts,
+                    'orderby' => 'post__in'
+                )
+            );
+            while($query->have_posts()) {
+                $query->the_post();
+                ?>
+                <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+            <?php } wp_reset_query(); ?>
+        </div>
+    </div>
+    <?php endif; ?>
+    <?php if(function_exists('get_field')) : ?>
+    <!-- author information -->
+        <div class="author-info">
+            <div class="container">
+                <div class="author-box">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <?php echo get_avatar(get_the_author_meta('WP_User->ID')); ?>
+                        </div>
+                        <div class="col-md-10">
+                            <h2><?php echo strtoupper( get_the_author_meta('display_name')); ?></h2>
+                            <p><?php echo get_the_author_meta('description'); ?></p>
+                            <div class="author-social">
+                                <a href="<?php echo get_field('facebook', 'user_'.get_the_author_meta('ID')); ?>" class="mr-3">Facebook</a>
+                                <a href="<?php echo get_field('twitter', 'user_'.get_the_author_meta('ID')); ?>" class="mr-3">Twitter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 <?php get_footer(); ?>
 </body>
 </html>
