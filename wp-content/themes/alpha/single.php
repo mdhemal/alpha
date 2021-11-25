@@ -99,6 +99,9 @@ $attachments = new Attachments( 'attachments' );
     $text_date_timestamp = get_post_meta(get_the_ID(), '_alpha_text_date_timestamp', true);
     $licenced = get_post_meta(get_the_ID(), '_alpha_licenced', true);
     $licence_information = get_post_meta(get_the_ID(), '_alpha_licence_information', true);
+    $image = get_post_meta(get_the_ID(), '_alpha_image_id', true);
+    $file_upload = get_post_meta(get_the_ID(), '_alpha_file_upload', true);
+    $image_src = wp_get_attachment_image_src($image, 'thumbnail');
 ?>
 
 <div class="licence-information mt-50">
@@ -109,9 +112,16 @@ $attachments = new Attachments( 'attachments' );
         <?php if($licenced) : ?>
             <p><strong>LIicence : </strong><?php echo esc_html($licence_information); ?></p>
         <?php endif; ?>
+        <div class="thumbnail-img">
+            <img src="<?php echo esc_url($image_src[0]); ?>" alt="">
+        </div>
+        <div class="file_url">
+            <p><?php echo esc_url($file_upload); ?></p>
+        </div>
     </div>
 </div>
 <?php endif; ?>
+
 
 	<div class="container">
 		<?php if(!post_password_required()) : ?>

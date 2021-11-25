@@ -227,3 +227,10 @@ function alpha_admin_assets( $hook ) {
 }
 
 add_action( "admin_enqueue_scripts", "alpha_admin_assets" );
+
+
+// pricing filter ( from pricing-page.php )
+function alpha_pricing_filter_func($value) {
+	echo "Price: ".$value;
+}
+add_filter('alpha_price_filer', 'alpha_pricing_filter_func');
